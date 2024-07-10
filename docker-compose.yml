@@ -46,4 +46,4 @@ networks:
 
 volumes:
   mysql-data:
-    driver: local
+    driver: dump
