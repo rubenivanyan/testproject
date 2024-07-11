@@ -1,3 +1,2 @@
 FROM mysql:latest
-ENV MYSQL_DATABASE=TEST
-ENV MYSQL_ROOT_PASSWORD=root
+COPY dump.sql /docker-entrypoint-initdb.d/dump.sql

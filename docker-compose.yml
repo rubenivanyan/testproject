@@ -1,19 +1,21 @@
 services:
   frontend:
     build:
-      #context: .
-      dockerfile: frontend/Dockerfile
+      context: ./frontend
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
     depends_on:
       - backend
     networks:
       - frontend-backend
+    environment:
+      - REACT_APP_BACKEND_URL=http://backend:3001
 
   backend:
     build:
-      #context: .
-      dockerfile: backend/Dockerfile
+      context: ./backend
+      dockerfile: Dockerfile
     ports:
       - "3001:3001"
     depends_on:
@@ -21,11 +23,16 @@ services:
     networks:
       - frontend-backend
       - backend-mysql
+    environment:
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASSWORD=root
 
   mysql:
     build:
-      #context: .
-      dockerfile: mysql/Dockerfile
+      context: ./mysql
+      dockerfile: Dockerfile
     ports:
       - "3306:3306"
     environment:
@@ -35,12 +42,15 @@ services:
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - mysql-data:/var/lib/mysql
+      - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
     networks:
       - backend-mysql
 
 networks:
   frontend-backend:
+    driver: bridge
   backend-mysql:
+    driver: bridge
 
 volumes:
   mysql-data:

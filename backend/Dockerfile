@@ -1,8 +1,7 @@
 FROM node:18 AS development
 ENV NODE_ENV=development
 WORKDIR /app
-COPY backend/package.json /app
-RUN npm install -g npm@10.8.2
+COPY package.json yarn.lock tsconfig.build.json ./
+RUN yarn install --frozen-lockfile
 COPY . .
-RUN /usr/local/bin/yarn install
 CMD ["yarn","start"]
