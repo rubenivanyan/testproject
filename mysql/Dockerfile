@@ -1,2 +1,2 @@
 FROM mysql:latest
-COPY dump.sql /docker-entrypoint-initdb.d/dump.sql
+COPY dump.mysql /docker-entrypoint-initdb.d/
