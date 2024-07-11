@@ -41,7 +41,7 @@ services:
       MYSQL_PASSWORD: mysql
       MYSQL_ROOT_PASSWORD: root
     volumes:
-      - /home/ruben/mysql-data:/var/lib/mysql
+      - mysql-data:/var/lib/mysql
     networks:
       - backend-mysql
 
