@@ -28,6 +28,8 @@ services:
       - DB_PORT=3306
       - DB_USER=root
       - DB_PASSWORD=root
+    volumes:
+      - static:/app/static
 
   mysql:
     build:
@@ -53,4 +55,6 @@ networks:
 
 volumes:
   mysql-data:
+    driver: local
+  static:
     driver: local
